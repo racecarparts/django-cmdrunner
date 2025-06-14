@@ -1,0 +1,18 @@
+
+{% extends "admin/change_form.html" %}
+{% block extrahead %}
+  {{ block.super }}
+  <script src="https://unpkg.com/htmx.org@1.9.10"></script>
+{% endblock %}
+
+{% block after_related_objects %}
+  {% if original %}
+    <h3>Live Output</h3>
+    <div
+      id="live-output"
+      hx-get="{% url 'admin:command_output' original.pk %}"
+      hx-swap="innerHTML"
+      hx-trigger="load, every 2s"
+    >Loading output...</div>
+  {% endif %}
+{% endblock %}
